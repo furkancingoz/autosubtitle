@@ -58,9 +58,9 @@ class FalAIService {
 
         print("📤 Requesting upload URL for: \(fileName)")
 
-        let (uploadData, uploadResponse) = try await session.data(for: request)
+        let (uploadData, uploadURLResponse) = try await session.data(for: request)
 
-        guard let httpResponse = uploadResponse as? HTTPURLResponse else {
+        guard let httpResponse = uploadURLResponse as? HTTPURLResponse else {
             throw FalAIError.invalidResponse
         }
 

@@ -180,7 +180,11 @@ struct PaywallView: View {
                 dismiss()
             } catch {
                 if let purchaseError = error as? PurchaseError {
-                    if purchaseError != .cancelled {
+                    switch purchaseError {
+                    case .cancelled:
+                        // User cancelled, don't show error
+                        break
+                    default:
                         errorMessage = purchaseError.localizedDescription
                         showError = true
                     }
