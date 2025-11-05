@@ -187,7 +187,17 @@ class RemoteConfigManager: ObservableObject {
         var isValid = true
         var issues: [String] = []
 
-        // Check API keys
+        // Check API keys (only warnings in debug mode)
+        #if DEBUG
+        if revenueCatAPIKey.isEmpty {
+            print("⚠️ RevenueCat API key is missing (development mode)")
+        }
+
+        if falAPIKey.isEmpty {
+            print("⚠️ fal.ai API key is missing (development mode)")
+        }
+        #else
+        // In production, API keys are required
         if revenueCatAPIKey.isEmpty {
             issues.append("RevenueCat API key is missing")
             isValid = false
@@ -197,6 +207,7 @@ class RemoteConfigManager: ObservableObject {
             issues.append("fal.ai API key is missing")
             isValid = false
         }
+        #endif
 
         // Check limits
         if maxVideoSizeMB <= 0 {
