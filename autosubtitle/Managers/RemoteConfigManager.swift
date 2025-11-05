@@ -30,7 +30,7 @@ class RemoteConfigManager: ObservableObject {
         // Limits
         "max_video_size_mb": 100 as NSObject,
         "max_video_duration_minutes": 60 as NSObject,
-        "free_user_credits": 5 as NSObject,
+        "free_user_credits": 100 as NSObject, // Increased for testing
         "max_retries": 3 as NSObject,
 
         // Pricing (for display purposes)

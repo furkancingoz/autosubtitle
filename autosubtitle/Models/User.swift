@@ -34,7 +34,7 @@ struct User: Codable, Identifiable {
     init(
         id: String? = nil,
         firebaseUID: String,
-        creditBalance: Int = 5, // Free tier starts with 5 credits
+        creditBalance: Int = 100, // Increased for testing
         subscriptionTier: SubscriptionTier = .free,
         createdAt: Date = Date(),
         lastActive: Date = Date(),
@@ -79,7 +79,7 @@ enum SubscriptionTier: String, Codable, CaseIterable {
 
     var monthlyCredits: Int {
         switch self {
-        case .free: return 5
+        case .free: return 100 // Increased for testing
         case .starter: return 60
         case .pro: return 180
         case .ultimate: return 500
@@ -99,7 +99,7 @@ enum SubscriptionTier: String, Codable, CaseIterable {
         switch self {
         case .free:
             return [
-                "5 videos per month",
+                "100 videos per month (Testing)",
                 "Standard quality",
                 "Watermark included",
                 "Basic fonts"
