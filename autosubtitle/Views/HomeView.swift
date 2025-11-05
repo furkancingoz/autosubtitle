@@ -128,7 +128,7 @@ struct HomeView: View {
             .background(Color(.systemGray6))
             .cornerRadius(16)
         }
-        .onChange(of: selectedVideoItem) { _, newItem in
+        .onChange(of: selectedVideoItem) { newItem in
             Task {
                 await loadVideo(from: newItem)
             }
