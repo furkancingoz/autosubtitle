@@ -19,7 +19,7 @@ class RemoteConfigManager: ObservableObject {
     private let defaults: [String: NSObject] = [
         // API Keys (defaults - will be overridden by Remote Config)
         "revenuecat_api_key": "" as NSObject,
-        "fal_api_key": "" as NSObject,
+        "apikey": "" as NSObject,
 
         // Feature Flags
         "enable_subscriptions": true as NSObject,
@@ -112,11 +112,13 @@ class RemoteConfigManager: ObservableObject {
     }
 
     var falAPIKey: String {
-        let key = remoteConfig.configValue(forKey: "fal_api_key").stringValue
+        let key = remoteConfig.configValue(forKey: "apikey").stringValue
 
         #if DEBUG
         if key.isEmpty {
             print("⚠️ fal.ai API key not configured in Remote Config")
+        } else {
+            print("✅ fal.ai API key loaded: \(key.prefix(10))...")
         }
         #endif
 
