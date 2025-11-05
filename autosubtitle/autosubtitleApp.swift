@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@main
+
 struct autosubtitleApp: App {
     var body: some Scene {
         WindowGroup {

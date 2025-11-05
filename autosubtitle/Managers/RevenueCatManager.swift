@@ -201,8 +201,9 @@ class RevenueCatManager: ObservableObject {
         // Check if credits should be granted for this billing period
         // This is a simplified version - in production, you'd track billing periods more carefully
 
-        guard let entitlement = customerInfo.entitlements.active.first?.value,
-              let periodType = entitlement.periodType else { return }
+        guard let entitlement = customerInfo.entitlements.active.first?.value else { return }
+
+        let periodType = entitlement.periodType
 
         // Only grant credits for active subscriptions
         if periodType == .normal {
@@ -302,9 +303,14 @@ class RevenueCatManager: ObservableObject {
 
     func checkTrialEligibility(for package: Package) async -> Bool {
         guard let customerInfo = customerInfo else { return false }
-        return await Purchases.shared.checkTrialOrIntroDiscountEligibility(
+        let eligibility = await Purchases.shared.checkTrialOrIntroDiscountEligibility(
             productIdentifiers: [package.storeProduct.productIdentifier]
-        )[package.storeProduct.productIdentifier] == .eligible
+        )
+
+        if let status = eligibility[package.storeProduct.productIdentifier] {
+            return status == .eligible
+        }
+        return false
     }
 }
 

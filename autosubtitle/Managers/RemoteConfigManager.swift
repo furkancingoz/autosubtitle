@@ -103,24 +103,24 @@ class RemoteConfigManager: ObservableObject {
         let key = remoteConfig.configValue(forKey: "revenuecat_api_key").stringValue
 
         #if DEBUG
-        if key?.isEmpty ?? true {
+        if key.isEmpty {
             print("⚠️ RevenueCat API key not configured in Remote Config")
         }
         #endif
 
-        return key ?? ""
+        return key
     }
 
     var falAPIKey: String {
         let key = remoteConfig.configValue(forKey: "fal_api_key").stringValue
 
         #if DEBUG
-        if key?.isEmpty ?? true {
+        if key.isEmpty {
             print("⚠️ fal.ai API key not configured in Remote Config")
         }
         #endif
 
-        return key ?? ""
+        return key
     }
 
     // MARK: - Feature Flags
@@ -238,7 +238,8 @@ class RemoteConfigManager: ObservableObject {
     // MARK: - Get Value (Generic)
 
     func getString(_ key: String, defaultValue: String = "") -> String {
-        remoteConfig.configValue(forKey: key).stringValue ?? defaultValue
+        let value = remoteConfig.configValue(forKey: key).stringValue
+        return value.isEmpty ? defaultValue : value
     }
 
     func getInt(_ key: String, defaultValue: Int = 0) -> Int {
